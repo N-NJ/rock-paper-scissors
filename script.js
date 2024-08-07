@@ -10,7 +10,7 @@ const paper = document.querySelector("#paper");
 const scissor = document.querySelector("#scissor");
 const result = document.querySelector("#result");
 const score = document.createElement("p");
-const announce = document.createElement("p");
+const announce = document.createElement("div");
 const finalScore = document.createElement("p");
 
 let humanScore = 0;
@@ -18,7 +18,6 @@ let computerScore = 0;
 
 function getSelection(e) {
   let target = e.target.id;
-  console.log(target);
   let computerChoice = getComputerChoice();
   switch (target) {
     case "rock":
@@ -38,10 +37,6 @@ result.appendChild(score);
 result.appendChild(announce);
 function playRound(humanChoice, computerChoice) {
   //checking for tie
-  // if () {
-
-  //   return humanScore, computerChoice;
-  // }
   //switch case checking for all lose conditions if not valid => it's a win.
   switch (true) {
     case humanChoice === `rock` && computerChoice === `paper`:
@@ -62,6 +57,15 @@ function playRound(humanChoice, computerChoice) {
       humanScore++;
       score.textContent = `Score is ${humanScore} - to - ${computerScore}`;
       announce.textContent = `You win! ${humanChoice} beats ${computerChoice}!`;
+  }
+  if (humanScore === 5 || computerScore === 5) {
+    result.appendChild(finalScore);
+    humanScore > computerScore
+      ? (announce.textContent = `You win!`)
+      : (announce.textContent = "You lose! :(");
+    humanScore = 0;
+    computerScore = 0;
+    announce.append(" - Choose rock, paper or scissors to start a new game!");
   }
   return humanScore, computerScore;
 }
