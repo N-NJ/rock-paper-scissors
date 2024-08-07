@@ -9,8 +9,7 @@ const rock = document.querySelector("#rock");
 const paper = document.querySelector("#paper");
 const scissor = document.querySelector("#scissor");
 const result = document.querySelector("#result");
-const humanScoreSpan = document.createElement("span");
-const computerScoreSpan = document.createElement("span");
+const score = document.createElement("p");
 const announce = document.createElement("p");
 const finalScore = document.createElement("p");
 
@@ -35,34 +34,34 @@ function getSelection(e) {
 }
 playerSelection.addEventListener("click", getSelection);
 
-result.append(humanScoreSpan, `-`, computerScoreSpan);
+result.appendChild(score);
 result.appendChild(announce);
 function playRound(humanChoice, computerChoice) {
   //checking for tie
-  if (humanChoice === computerChoice) {
-    announce.textContent = `It's a tie! You both chose ${humanChoice}`;
-    humanScore++;
-    computerScore++;
-    humanScoreSpan.textContent = humanScore;
-    computerScoreSpan.textContent = computerScore;
-    return humanScore, computerChoice;
-  }
+  // if () {
+
+  //   return humanScore, computerChoice;
+  // }
   //switch case checking for all lose conditions if not valid => it's a win.
   switch (true) {
     case humanChoice === `rock` && computerChoice === `paper`:
     case humanChoice === `paper` && computerChoice === `scissors`:
     case humanChoice === `scissors` && computerChoice === `rock`:
       computerScore++;
+      score.textContent = `Score is ${humanScore} - to - ${computerScore}`;
       announce.textContent = `You lose! ${computerChoice} beats ${humanChoice}!`;
-      humanScoreSpan.textContent = humanScore;
-      computerScoreSpan.textContent = computerScore;
+      break;
+    case humanChoice === computerChoice:
+      humanScore++;
+      computerScore++;
+      score.textContent = `Score is ${humanScore} - to - ${computerScore}`;
+      announce.textContent = `It's a tie! You both chose ${computerChoice}!`;
       break;
     //default case of winning
     default:
       humanScore++;
+      score.textContent = `Score is ${humanScore} - to - ${computerScore}`;
       announce.textContent = `You win! ${humanChoice} beats ${computerChoice}!`;
-      humanScoreSpan.textContent = humanScore;
-      computerScoreSpan.textContent = computerScore;
   }
   return humanScore, computerScore;
 }
